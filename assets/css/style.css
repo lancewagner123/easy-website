@@ -188,6 +188,12 @@ p:last-child { margin-bottom: 0; }
   padding: 16px 0 80px;
 }
 .portfolio h2 { margin-bottom: 0.3em; }
+.portfolio__hint {
+  color: var(--orange-dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-top: 0.3em;
+}
 
 .bento-grid {
   display: grid;
