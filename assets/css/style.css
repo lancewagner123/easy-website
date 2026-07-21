@@ -11,6 +11,17 @@
   --white: #ffffff;
   --orange: #f26522;
   --orange-dark: #cc4e14;
+  /* WCAG AA contrast fixes (2026-07-21) — same orange family, darker/lighter
+     shades picked so text/buttons hit 4.5:1 without ever swapping orange for
+     a different hue. --orange and --orange-dark above are kept exactly as-is
+     for every use that was already passing (decorative gradients, the
+     large-bold bento/guarantee text, the two dark-background hover links
+     below use --orange-light instead since darkening further would have
+     moved *toward* that dark background, not away from it). */
+  --orange-text: #b54512;       /* orange text on light backgrounds (nav, eyebrows, headings) */
+  --orange-cta: #c1460b;        /* orange button backgrounds under white text */
+  --orange-cta-hover: #9a3809;  /* darker hover state for those same buttons */
+  --orange-light: #f4793f;      /* orange link hover on dark backgrounds (lighter, not darker) */
   --radius: 10px;
   --shadow-sm: 0 2px 10px rgba(7, 12, 22, 0.1);
   --shadow-lg: 0 20px 45px rgba(7, 12, 22, 0.28);
@@ -75,7 +86,7 @@ p:last-child { margin-bottom: 0; }
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--orange);
+  background: var(--orange-cta);
   color: var(--white);
   padding: 12px 20px;
   z-index: 100;
@@ -128,7 +139,7 @@ p:last-child { margin-bottom: 0; }
 }
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
-  color: var(--orange-dark);
+  color: var(--orange-text);
 }
 .nav-toggle {
   display: none;
@@ -177,7 +188,7 @@ p:last-child { margin-bottom: 0; }
 }
 .hero h1 { max-width: 20ch; }
 .hero__sub {
-  color: var(--orange-dark);
+  color: var(--orange-text);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -210,7 +221,7 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: var(--orange);
+  background: var(--orange-cta);
   color: var(--white);
   font-weight: 800;
   font-size: 1.05rem;
@@ -221,7 +232,7 @@ p:last-child { margin-bottom: 0; }
   width: 260px;
   min-height: 80px;
 }
-.btn-cta:hover { background: var(--orange-dark); }
+.btn-cta:hover { background: var(--orange-cta-hover); }
 
 @media (max-width: 700px) {
   .hero__inner { flex-direction: column; align-items: flex-start; gap: 24px; }
@@ -234,7 +245,7 @@ p:last-child { margin-bottom: 0; }
 }
 .portfolio h2 { margin-bottom: 0.3em; }
 .portfolio__hint {
-  color: var(--orange-dark);
+  color: var(--orange-text);
   font-weight: 700;
   font-size: 0.9rem;
   margin-top: 0.3em;
@@ -421,7 +432,7 @@ p:last-child { margin-bottom: 0; }
 }
 .service-card h3 {
   margin-bottom: 0.35em;
-  color: var(--orange-dark);
+  color: var(--orange-text);
   font-size: 1.1rem;
 }
 .service-card p { margin: 0; }
@@ -493,7 +504,7 @@ p:last-child { margin-bottom: 0; }
   font-weight: 800;
   text-decoration: underline;
 }
-.cta-band a:hover { color: var(--orange-dark); }
+.cta-band a:hover { color: var(--orange-light); }
 
 /* About page — "why it's different" feature grid */
 .value-grid {
@@ -522,7 +533,7 @@ p:last-child { margin-bottom: 0; }
   height: 5px;
   background: linear-gradient(90deg, var(--orange) 0%, var(--orange-dark) 100%);
 }
-.value-card h3 { color: var(--orange-dark); margin-bottom: 0.35em; }
+.value-card h3 { color: var(--orange-text); margin-bottom: 0.35em; }
 .value-card p { margin: 0; }
 
 @media (max-width: 900px) {
@@ -604,14 +615,14 @@ p:last-child { margin-bottom: 0; }
   align-self: flex-start;
   font: inherit;
   font-weight: 800;
-  background: var(--orange);
+  background: var(--orange-cta);
   color: var(--white);
   border: none;
   border-radius: var(--radius);
   padding: 13px 26px;
   cursor: pointer;
 }
-.contact-form button:hover { background: var(--orange-dark); }
+.contact-form button:hover { background: var(--orange-cta-hover); }
 .contact-note {
   font-size: 0.85rem;
   color: var(--ink-soft);
@@ -650,7 +661,7 @@ p:last-child { margin-bottom: 0; }
   gap: 8px;
 }
 .footer-col ul a { font-size: 0.9rem; color: var(--ink-soft); }
-.footer-col ul a:hover { color: var(--orange-dark); }
+.footer-col ul a:hover { color: var(--orange-text); }
 .footer-bottom {
   border-top: 1px solid var(--line);
   padding-top: 20px;
@@ -699,7 +710,7 @@ p:last-child { margin-bottom: 0; }
 }
 
 .price-card__eyebrow {
-  color: var(--orange-dark);
+  color: var(--orange-text);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -733,7 +744,7 @@ p:last-child { margin-bottom: 0; }
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.4rem;
-  color: var(--orange-dark);
+  color: var(--orange-text);
   margin: 0 0 1.1em;
 }
 .price-card__extra span {
@@ -823,7 +834,7 @@ p:last-child { margin-bottom: 0; }
   font-weight: 800;
   text-decoration: underline;
 }
-.pricing-close a:hover { color: var(--orange-dark); }
+.pricing-close a:hover { color: var(--orange-light); }
 
 @media (max-width: 700px) {
   .pricing-grid { grid-template-columns: 1fr; }
