@@ -35,35 +35,51 @@
 <main id="main">
 
   <section class="page-hero">
-    <div class="container">
-      <p class="hero__sub">Contact</p>
-      <h1>Request a quote.</h1>
-      <p>Tell us about your business and what you need — we'll get back to you.</p>
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <p class="hero__sub">Contact</p>
+        <h1>Request a quote.</h1>
+        <p>Tell us about your business and what you need — we'll get back to you.</p>
+      </div>
+      <a class="btn-cta" href="https://forms.gle/baLx64cR48J1R1YM6" target="_blank" rel="noopener">Start your site today.</a>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <!-- Visual only for now — no form backend wired up yet. Needs a service
-           (e.g. Formspree) before this can actually submit anywhere. See
-           docs/BUILD_BRIEF.md open questions: no public contact email confirmed
-           yet, so nothing to point a mailto/backend at either. -->
-      <form class="contact-form" action="#" onsubmit="return false;">
-        <label>
-          Name
-          <input type="text" name="name" autocomplete="name" required>
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" autocomplete="email" required>
-        </label>
-        <label>
-          What do you need?
-          <textarea name="message" required></textarea>
-        </label>
-        <button type="submit">Send</button>
-        <p class="contact-note">This form isn't wired up to send anywhere yet — it's here so you can see the page. Let us know how you'd like it handled.</p>
-      </form>
+      <div class="contact-layout">
+        <div class="contact-card">
+          <!-- Visual only for now — no form backend wired up yet. Needs a service
+               (e.g. Formspree) before this can actually submit anywhere. See
+               docs/BUILD_BRIEF.md open questions: no public contact email confirmed
+               yet, so nothing to point a mailto/backend at either. -->
+          <form class="contact-form" action="#" onsubmit="return false;">
+            <label>
+              Name
+              <input type="text" name="name" autocomplete="name" required>
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <label>
+              What do you need?
+              <textarea name="message" required></textarea>
+            </label>
+            <button type="submit">Send</button>
+            <p class="contact-note">This form isn't wired up to send anywhere yet — it's here so you can see the page. Let us know how you'd like it handled.</p>
+          </form>
+        </div>
+
+        <aside class="contact-aside">
+          <h2>What to expect</h2>
+          <ul class="check-list">
+            <li>No cost and no pressure — just a quote</li>
+            <li>You approve the finished site before paying a cent</li>
+            <li>Real people building your actual site — no templates, no bots</li>
+          </ul>
+        </aside>
+      </div>
     </div>
   </section>
 
