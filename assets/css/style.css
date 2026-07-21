@@ -242,208 +242,55 @@ p:last-child { margin-bottom: 0; }
   .bento-item, .bento-item--large { grid-row: auto; height: 260px; }
 }
 
-/* Responsive-demo showcase */
-.responsive-demo {
-  padding: 0 0 80px;
-}
-.responsive-demo h2 { margin-bottom: 0.3em; }
-
-.responsive-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 32px;
-}
-.responsive-frame {
-  margin: 0;
-  text-align: center;
-}
-.responsive-frame img {
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--line);
-}
-.responsive-frame--desktop img { width: 100%; max-width: 620px; }
-.responsive-frame--tablet img { width: 100%; max-width: 260px; }
-.responsive-frame--mobile img { width: 100%; max-width: 160px; }
-.responsive-frame figcaption {
-  margin-top: 10px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--ink-soft);
-}
-
-@media (max-width: 700px) {
-  .responsive-frame--desktop { flex-basis: 100%; }
-  .responsive-frame--desktop img { max-width: 100%; }
-  .responsive-frame--tablet img { max-width: 200px; }
-  .responsive-frame--mobile img { max-width: 130px; }
-}
-
-/* Device showcase (Services page) — one large landscape shot left,
-   two stacked portrait shots right. Kept deliberately un-cropped (no
-   object-fit) since these are "here's what it looks like" proof shots,
-   not decorative tiles — cropping would misrepresent them. */
+/* Device showcase (Services page) — one small landscape shot left, two
+   smaller stacked portrait shots right, all contained in a single card
+   ("box") rather than spread across the full content width. Kept
+   deliberately un-cropped (no object-fit) since these are "here's what
+   it looks like" proof shots, not decorative tiles — cropping would
+   misrepresent them. */
 .device-section { padding-top: 8px; }
 .device-section h2 { margin-bottom: 0.3em; }
+
+.device-box {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
 
 .device-showcase {
   display: flex;
   align-items: flex-start;
-  gap: 24px;
-  margin-top: 28px;
-  flex-wrap: wrap;
+  gap: 16px;
 }
 .device-showcase figure { margin: 0; }
 .device-showcase img {
   display: block;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
+  border-radius: 6px;
   border: 1px solid var(--line);
 }
 
-/* flex:1 so the main shot fills whatever width the fixed-width stack
-   doesn't use — no leftover column space, and it also happens to bring
-   the main image's height close to the stack's combined height without
-   any manual math (wider main image -> taller, at a fixed aspect ratio). */
-.device-showcase__main { flex: 1 1 480px; min-width: 0; }
+.device-showcase__main { flex: 0 0 auto; width: 440px; max-width: 55vw; }
 .device-showcase__main img { width: 100%; }
 
 .device-showcase__stack {
-  flex: 0 0 240px;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  gap: 12px;
 }
 .device-showcase__stack img { height: auto; }
-.device-showcase__stack figure:nth-child(1) img { width: 100%; }
-.device-showcase__stack figure:nth-child(2) img { width: 160px; }
+.device-showcase__stack figure:nth-child(1) img { width: 115px; }
+.device-showcase__stack figure:nth-child(2) img { width: 78px; }
 
 @media (max-width: 700px) {
-  .device-showcase { flex-direction: column; }
-  .device-showcase__main { flex-basis: auto; width: 100%; }
-  .device-showcase__stack {
-    flex: 0 0 auto;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
-    width: 100%;
-  }
-  .device-showcase__stack figure:nth-child(1) img,
-  .device-showcase__stack figure:nth-child(2) img { width: 44%; }
-}
-
-/* Portfolio — carousel (Concept B) */
-.carousel {
-  position: relative;
-  margin-top: 32px;
-  outline: none;
-}
-.carousel__track {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  aspect-ratio: 16 / 9;
-  background: var(--ink);
-}
-/* Crossfade, not a sliding transform: each slide is stacked full-bleed and
-   toggled via opacity. Simpler and more compositing-safe than translating an
-   overflowing flex track — that approach produced a real paint bug in testing
-   (computed layout was correct per getBoundingClientRect, but nothing painted). */
-.carousel__slide {
-  position: absolute;
-  inset: 0;
-  display: block;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease;
-}
-.carousel__slide.is-active {
-  opacity: 1;
-  visibility: visible;
-}
-.carousel__slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-.carousel__caption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 24px;
-  background: linear-gradient(0deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0) 100%);
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.carousel__caption strong { font-size: 1.2rem; }
-.carousel__caption small { color: rgba(255,255,255,0.85); }
-
-.carousel__slide--cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--orange);
-  text-align: center;
-}
-.carousel__slide--cta p {
-  color: var(--white);
-  font-weight: 800;
-  font-size: clamp(1.05rem, 4vw, 1.6rem);
-  margin: 0;
-  padding: 0 68px; /* clears the prev/next arrow buttons at any width */
-}
-
-.carousel__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--ink);
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
-}
-.carousel__arrow:hover { background: var(--orange); color: var(--white); }
-.carousel__arrow--prev { left: 14px; }
-.carousel__arrow--next { right: 14px; }
-
-.carousel__dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 18px;
-}
-.carousel__dot {
-  width: 9px;
-  height: 9px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: var(--line);
-  cursor: pointer;
-  transition: width 0.2s ease, border-radius 0.2s ease, background 0.2s ease;
-}
-.carousel__dot[aria-current="true"] {
-  width: 24px;
-  border-radius: 5px;
-  background: var(--orange);
+  .device-box { display: block; padding: 16px; }
+  .device-showcase { flex-wrap: wrap; justify-content: center; }
+  .device-showcase__main { width: 100%; max-width: 260px; }
 }
 
 /* Generic content section, used by About/Services/Contact */
