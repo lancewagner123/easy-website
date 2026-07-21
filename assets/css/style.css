@@ -252,7 +252,9 @@ p:last-child { margin-bottom: 0; }
 .device-section h2 { margin-bottom: 0.3em; }
 
 .device-box {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
   margin-top: 28px;
   padding: 24px;
   background: var(--white);
@@ -261,20 +263,25 @@ p:last-child { margin-bottom: 0; }
   box-shadow: var(--shadow-sm);
 }
 
-.device-showcase {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-.device-showcase figure { margin: 0; }
-.device-showcase img {
+.device-box figure { margin: 0; }
+.device-box img {
   display: block;
   border-radius: 6px;
   border: 1px solid var(--line);
 }
 
-.device-showcase__main { flex: 0 0 auto; width: 440px; max-width: 55vw; }
+.device-showcase__main { width: 465px; max-width: 60vw; }
 .device-showcase__main img { width: 100%; }
+
+/* Desktop shot sits on top (full box width); the stack + the section's
+   own heading/copy share the row underneath — the copy fills the gap
+   left over because the stack (tablet+mobile) is narrower than the
+   desktop image above it, instead of that space going empty. */
+.device-showcase__lower {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
 
 .device-showcase__stack {
   flex: 0 0 auto;
@@ -284,13 +291,21 @@ p:last-child { margin-bottom: 0; }
   gap: 12px;
 }
 .device-showcase__stack img { height: auto; }
-.device-showcase__stack figure:nth-child(1) img { width: 115px; }
-.device-showcase__stack figure:nth-child(2) img { width: 78px; }
+.device-showcase__stack figure:nth-child(1) img { width: 165px; }
+.device-showcase__stack figure:nth-child(2) img { width: 103px; }
+
+.device-showcase__text { flex: 1 1 auto; min-width: 0; }
+.device-showcase__text h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.4em;
+}
+.device-showcase__text p { margin: 0; }
 
 @media (max-width: 700px) {
-  .device-box { display: block; padding: 16px; }
-  .device-showcase { flex-wrap: wrap; justify-content: center; }
-  .device-showcase__main { width: 100%; max-width: 260px; }
+  .device-box { display: flex; padding: 16px; width: 100%; }
+  .device-showcase__main { width: 100%; max-width: 320px; }
+  .device-showcase__lower { flex-wrap: wrap; }
+  .device-showcase__text { flex-basis: 100%; }
 }
 
 /* Generic content section, used by About/Services/Contact */
