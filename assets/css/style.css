@@ -255,13 +255,17 @@ p:last-child { margin-bottom: 0; }
   overflow: hidden;
   background: var(--ink);
   box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.18s ease;
 }
+.bento-item:hover { box-shadow: var(--shadow-lg); }
 .bento-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
+  transition: transform 0.25s ease;
 }
+.bento-item:hover img { transform: scale(1.05); }
 .bento-item--large { grid-row: 1 / 3; }
 
 .bento-caption {
@@ -300,28 +304,41 @@ p:last-child { margin-bottom: 0; }
   .bento-item, .bento-item--large { grid-row: auto; height: 260px; }
 }
 
-/* Device showcase (Services page) — heading + copy above, then the
-   image cluster: desktop full-size on top, tablet + mobile side by
-   side underneath. Mobile is scaled so its HEIGHT matches the TABLET
-   IMAGE'S WIDTH (not the tablet's height) — a deliberate, unusual pairing
-   requested directly, not a typo carried over from an earlier revision
-   where mobile matched tablet's height instead. No card/background/
-   border wrapping the group — the images sit directly on the page, and
-   the two internal gaps (main-to-row, tablet-to-mobile) share one value
-   so neither reads as tighter/looser than the other. Kept deliberately
-   un-cropped (no object-fit) since these are "here's what it looks
-   like" proof shots, not decorative tiles — cropping would misrepresent
-   them. */
+/* Device showcase (About page) — heading + copy above, then the image
+   cluster: desktop full-height on the left, tablet stacked above mobile
+   on the right. Deliberately built to read as ONE clean rectangle: the
+   tablet+mobile column's combined height (two images + the gap between
+   them) is set to equal the desktop image's height exactly, and mobile's
+   height is set equal to tablet's height (both requested directly,
+   2026-07-21 — reversing the previous "mobile matches tablet's width"
+   rule from an earlier revision). The same --device-gap value is used
+   for every gap in the cluster (main-to-stack, tablet-to-mobile) so the
+   spacing reads as even throughout, not just within one axis. No card/
+   background/border wrapping the group — the images sit directly on the
+   page. Kept deliberately un-cropped (no object-fit) since these are
+   "here's what it looks like" proof shots, not decorative tiles —
+   cropping would misrepresent them.
+
+   The math accounts for the sitewide `border-box` sizing plus each
+   image's 1px border (so a `width` value is the BORDER-BOX total, 2px
+   more than the content width the aspect ratio actually applies to):
+     desktop content height = (640-2) * (1000/1600)      = 398.75px  -> total 400.75px
+     tablet content height  = (400.75-2 - gap) / 2        = 188.375px -> total 190.375px
+     tablet content width   = 188.375 * (1280/800)        = 301.4px  -> total 303.4px
+     mobile content height  = tablet content height        = 188.375px -> total 190.375px
+     mobile content width   = 188.375 * (390/844)          = 87.05px -> total 89.05px
+   Verify with getBoundingClientRect() after any future resize — these
+   numbers only form a true rectangle at viewport widths wide enough for
+   the desktop image to sit at its full 640px (not the 90vw cap). */
 .device-section { padding-top: 8px; }
 .device-section h2 { margin-bottom: 0.3em; }
 .device-section > .container > p { max-width: 60ch; }
 
 .device-showcase {
-  --device-gap: 20px; /* same value used for both the vertical gap below
-                          and the horizontal gap between tablet/mobile */
+  --device-gap: 20px;
   display: flex;
-  flex-direction: column;
   gap: var(--device-gap);
+  align-items: flex-start;
   margin-top: 28px;
 }
 .device-showcase figure { margin: 0; }
@@ -331,33 +348,31 @@ p:last-child { margin-bottom: 0; }
   border: 1px solid var(--line);
 }
 
-.device-showcase__main { width: 640px; max-width: 90vw; }
+.device-showcase__main { width: 640px; max-width: 90vw; flex: 0 0 auto; }
 .device-showcase__main img { width: 100%; }
 
-.device-showcase__row {
+.device-showcase__stack {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: var(--device-gap);
+  flex: 0 0 auto;
 }
-.device-showcase__row img { height: auto; }
-.device-showcase__row figure:nth-child(1) img { width: 400px; max-width: 60vw; }
-/* Mobile's HEIGHT is set to match the tablet image's WIDTH (400px wide
-   landscape tablet at a 1280:800 source ratio). At the mobile source's
-   390:844 ratio, a 400px-tall render works out to ~184.8px wide. */
-.device-showcase__row figure:nth-child(2) img { width: 184.8px; max-width: 26vw; }
+.device-showcase__stack img { height: auto; }
+.device-showcase__stack figure:nth-child(1) img { width: 303.4px; }
+.device-showcase__stack figure:nth-child(2) img { width: 89.05px; }
 
 @media (max-width: 700px) {
+  /* Same rectangle logic, recomputed for the narrower fixed tablet width
+     already established at this breakpoint (240px total, 238px content):
+     tablet content height = 238*(800/1280) = 148.75px -> total 150.75px;
+     mobile content height matches it (148.75px), giving a mobile content
+     width of 148.75*(390/844) = 68.72px -> total 70.72px. Stacked
+     vertically (not side by side) below the full-width main image —
+     there's no room for a second column at phone widths. */
+  .device-showcase { flex-direction: column; }
   .device-showcase__main { width: 100%; max-width: none; }
-  /* Explicit width overrides, not max-width — the base rule's fixed
-     `width` would otherwise keep winning and the figures/images end up
-     sized inconsistently with each other (found by inspecting actual
-     computed widths, not by assumption). Tablet:mobile stays side by
-     side at every width (never wraps); mobile's width here is derived
-     the same way as the desktop rule — its height should equal the
-     240px tablet's width, i.e. also 240px tall, which at mobile's
-     390:844 ratio is ~111px wide. */
-  .device-showcase__row figure:nth-child(1) img { width: 240px; }
-  .device-showcase__row figure:nth-child(2) img { width: 111px; }
+  .device-showcase__stack figure:nth-child(1) img { width: 240px; }
+  .device-showcase__stack figure:nth-child(2) img { width: 70.72px; }
 }
 
 /* Generic content section, used by About/Services/Contact */
@@ -494,6 +509,11 @@ p:last-child { margin-bottom: 0; }
   padding: 28px 24px;
   box-shadow: var(--shadow-sm);
   overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 .value-card::before {
   content: "";
