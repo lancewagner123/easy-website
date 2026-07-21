@@ -249,10 +249,12 @@ p:last-child { margin-bottom: 0; }
   .bento-item, .bento-item--large { grid-row: auto; height: 260px; }
 }
 
-/* Device showcase (Services page) — image cluster on the left, heading
-   + copy to its right (never above/below). Desktop full-size on top,
-   tablet + mobile side by side underneath, mobile scaled to match the
-   tablet's height rather than its own natural size. No card/background/
+/* Device showcase (Services page) — heading + copy above, then the
+   image cluster: desktop full-size on top, tablet + mobile side by
+   side underneath. Mobile is scaled so its HEIGHT matches the TABLET
+   IMAGE'S WIDTH (not the tablet's height) — a deliberate, unusual pairing
+   requested directly, not a typo carried over from an earlier revision
+   where mobile matched tablet's height instead. No card/background/
    border wrapping the group — the images sit directly on the page, and
    the two internal gaps (main-to-row, tablet-to-mobile) share one value
    so neither reads as tighter/looser than the other. Kept deliberately
@@ -261,14 +263,7 @@ p:last-child { margin-bottom: 0; }
    them. */
 .device-section { padding-top: 8px; }
 .device-section h2 { margin-bottom: 0.3em; }
-
-.device-layout {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-top: 28px;
-  flex-wrap: wrap;
-}
+.device-section > .container > p { max-width: 60ch; }
 
 .device-showcase {
   --device-gap: 20px; /* same value used for both the vertical gap below
@@ -276,14 +271,7 @@ p:last-child { margin-bottom: 0; }
   display: flex;
   flex-direction: column;
   gap: var(--device-gap);
-  /* flex-shrink must stay enabled (not 0 0 auto) — otherwise this whole
-     block refuses to shrink below its ~640px content width inside the
-     wrapped .device-layout on narrow viewports and overflows the page
-     instead of wrapping to its own line. min-width:0 overrides the flex
-     item's default min-width:auto, which would otherwise still block
-     shrinking past the width of the fixed-width children inside it. */
-  flex: 1 1 480px;
-  min-width: 0;
+  margin-top: 28px;
 }
 .device-showcase figure { margin: 0; }
 .device-showcase img {
@@ -302,26 +290,23 @@ p:last-child { margin-bottom: 0; }
 }
 .device-showcase__row img { height: auto; }
 .device-showcase__row figure:nth-child(1) img { width: 400px; max-width: 60vw; }
-/* Mobile sized to match the tablet image's rendered height (400px wide
-   landscape tablet at a 1280:800 source ratio = 250px tall; matching
-   that height at the mobile source's 390:844 ratio works out to ~115.5px). */
-.device-showcase__row figure:nth-child(2) img { width: 115.5px; max-width: 18vw; }
-
-.device-showcase__text { flex: 1 1 260px; min-width: 240px; }
-.device-showcase__text p { max-width: 50ch; }
+/* Mobile's HEIGHT is set to match the tablet image's WIDTH (400px wide
+   landscape tablet at a 1280:800 source ratio). At the mobile source's
+   390:844 ratio, a 400px-tall render works out to ~184.8px wide. */
+.device-showcase__row figure:nth-child(2) img { width: 184.8px; max-width: 26vw; }
 
 @media (max-width: 700px) {
-  .device-layout { flex-direction: column; }
-  .device-showcase { flex-basis: auto; }
   .device-showcase__main { width: 100%; max-width: none; }
   /* Explicit width overrides, not max-width — the base rule's fixed
      `width` would otherwise keep winning and the figures/images end up
      sized inconsistently with each other (found by inspecting actual
      computed widths, not by assumption). Tablet:mobile stays side by
-     side at every width (never wraps) with the same ratio as desktop,
-     so the height-match between them holds at this size too. */
+     side at every width (never wraps); mobile's width here is derived
+     the same way as the desktop rule — its height should equal the
+     240px tablet's width, i.e. also 240px tall, which at mobile's
+     390:844 ratio is ~111px wide. */
   .device-showcase__row figure:nth-child(1) img { width: 240px; }
-  .device-showcase__row figure:nth-child(2) img { width: 69px; }
+  .device-showcase__row figure:nth-child(2) img { width: 111px; }
 }
 
 /* Generic content section, used by About/Services/Contact */
