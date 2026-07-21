@@ -242,6 +242,48 @@ p:last-child { margin-bottom: 0; }
   .bento-item, .bento-item--large { grid-row: auto; height: 260px; }
 }
 
+/* Responsive-demo showcase */
+.responsive-demo {
+  padding: 0 0 80px;
+}
+.responsive-demo h2 { margin-bottom: 0.3em; }
+
+.responsive-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 32px;
+}
+.responsive-frame {
+  margin: 0;
+  text-align: center;
+}
+.responsive-frame img {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line);
+}
+.responsive-frame--desktop img { width: 100%; max-width: 620px; }
+.responsive-frame--tablet img { width: 100%; max-width: 260px; }
+.responsive-frame--mobile img { width: 100%; max-width: 160px; }
+.responsive-frame figcaption {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 700px) {
+  .responsive-frame--desktop { flex-basis: 100%; }
+  .responsive-frame--desktop img { max-width: 100%; }
+  .responsive-frame--tablet img { max-width: 200px; }
+  .responsive-frame--mobile img { max-width: 130px; }
+}
+
 /* Portfolio — carousel (Concept B) */
 .carousel {
   position: relative;
