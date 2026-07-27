@@ -15,9 +15,14 @@
      shades picked so text/buttons hit 4.5:1 without ever swapping orange for
      a different hue. --orange and --orange-dark above are kept exactly as-is
      for every use that was already passing (decorative gradients, the
-     large-bold bento/guarantee text, the two dark-background hover links
-     below use --orange-light instead since darkening further would have
-     moved *toward* that dark background, not away from it). */
+     guarantee-banner icon, the two dark-background hover links below use
+     --orange-light instead since darkening further would have moved
+     *toward* that dark background, not away from it). The home-page bento
+     CTA card was switched from --orange to --orange-cta on 2026-07-26 to
+     visually match the site's other solid-fill/white-text orange (buttons,
+     skip-link) — contrast only improved by the swap (bare --orange was
+     already passing at ~3.15:1 for this bold/large text; --orange-cta is
+     darker still), so no accessibility tradeoff. */
   --orange-text: #b54512;       /* orange text on light backgrounds (nav, eyebrows, headings) */
   --orange-cta: #c1460b;        /* orange button backgrounds under white text */
   --orange-cta-hover: #9a3809;  /* darker hover state for those same buttons */
@@ -296,7 +301,7 @@ p:last-child { margin-bottom: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--orange);
+  background: var(--orange-cta);
   text-align: center;
   padding: 20px;
 }
