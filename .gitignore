@@ -6,9 +6,9 @@ Thumbs.db
 # Internal research notes — may contain data marked "do not publish"
 # (personal contact info, excluded names, unverified/stale facts).
 # Kept locally only; never push to a public remote without explicit
-# confirmation from the client — see factory_instructions.md §5.
+# confirmation from the client — see factory_instructions.md §6.
 docs/
 
 # The site's own field journal — internal reasoning/decision record, not
-# public-facing content. Kept out of the repo entirely, per §5.
+# public-facing content. Kept out of the repo entirely, per §6.
 field_journal.md
